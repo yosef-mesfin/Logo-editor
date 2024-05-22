@@ -1,0 +1,121 @@
+.rootContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  background: #1f291f;
+}
+.editorContainer {
+  width: 1200px;
+  height: 750px;
+  border: 1px solid #333;
+  color: #fff;
+  display: flex;
+  background: #162016;
+}
+
+.editorLeft {
+  width: 35%;
+  height: 100%;
+  border-right: #333 1px solid;
+  display: flex;
+  flex-direction: column;
+}
+
+.currentImageContainer {
+  position: relative;
+  max-width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: #333 5px solid;
+}
+
+.currentImageContainer :nth-child(2) {
+  max-width: 90%;
+  max-height: 90%;
+  border: #2ecc71 dashed 1px;
+}
+
+.editIcon {
+  position: absolute;
+  background-color: #1f291f;
+  top: 0;
+  left: 0;
+  margin: -6px 0 0 -6px;
+}
+
+.originalImageContainer {
+  max-width: 100%;
+  height: 357px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: #333 5px solid;
+}
+
+.originalImageContainer img {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.editorRight {
+  width: 65%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.editorControls {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+ /* .editorContainer button:active {
+  background: #333;
+ } */
+
+
+
+ .downloadContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem;
+ }
+
+.downloadContainer select {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background: #333;
+  color: #fff;
+  font-size: 1rem;
+  margin-right: 1rem;
+  outline: 1px solid #2ecc71;
+}
+
+option {
+  background: #333;
+  color: #fff;
+}
+
+.downloadContainer button {
+  padding: 0.5rem;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background: #2ecc71;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}

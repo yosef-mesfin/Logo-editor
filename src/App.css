@@ -1,0 +1,89 @@
+.rootContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background: #1f291f;
+	width: 100vw;
+	color: #fff;
+}
+
+.uploadContainer {
+	margin: 2rem;
+	width: 35%;
+}
+
+.dropBox {
+	position: relative;
+	display: flex;
+	gap: 10px;
+	height: 200px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	border-radius: 10px;
+	border: 2px dashed #555;
+	color: #c4c4c4;
+	cursor: pointer;
+	transition: background 0.2s ease-in-out, border 0.2s ease-in-out;
+
+	&:hover {
+		background: #323232;
+		border-color: #2ecc71;
+	}
+}
+
+.uploadTitle {
+	color: #e7e7e7;
+	font-size: 1.5rem;
+	font-weight: bold;
+	text-align: center;
+	transition: color 0.2s ease-in-out;
+}
+
+.inputFile {
+	width: 350px;
+	max-width: 100%;
+	color: #fff;
+	font-size: 1.3rem;
+	padding: 5px;
+	border-radius: 10px;
+	border: 1px solid #555;
+
+	&::file-selector-button {
+		background: #2ecc71;
+		color: #fff;
+		padding: 10px 20px;
+		border-radius: 10px;
+		border: none;
+		cursor: pointer;
+		transition: background 0.2s ease-in-out;
+	}
+
+	&::file-selector-button:hover {
+		background: #27ae60;
+	}
+}
+
+.title {
+	width: 50%;
+	text-align: center;
+	font-size: 3.5rem;
+	text-transform: capitalize;
+}
+
+.nextButton {
+  background: #2ecc71;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+
+  &:hover {
+    background: #27ae60;
+  }
+}
