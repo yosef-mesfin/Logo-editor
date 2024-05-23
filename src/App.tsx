@@ -10,12 +10,25 @@ function App() {
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const { file, setFile } = useFile();
 	const [fileSelected, setFileSelected] = useState(false);
+	const [startSlideOut, setStartSlideOut] = useState(false);
 
 	const spring = useSpring({
 		from: { opacity: 0 },
 		to: { opacity: 1 },
 		config: {
 			duration: 1000,
+		},
+	});
+
+	const slideOut = useSpring({
+		transform: startSlideOut ? "translateX(-100%)" : "translateX(0%)",
+		config: {
+			duration: 500,
+		},
+		onRest: () => {
+			if (startSlideOut) {
+				navigate("/editor");
+			}
 		},
 	});
 
@@ -68,7 +81,7 @@ function App() {
 	}, [fileSelected]);
 
 	return (
-		<div className="rootContainer">
+		<animated.div style={slideOut} className="rootContainer">
 			<h1 className="title">Generate Logo variation in seconds.</h1>
 			<animated.div style={spring} className="uploadContainer">
 				<div ref={dropContainerRef} className="dropBox" id="dropbox">
@@ -92,9 +105,9 @@ function App() {
 			<button
 				disabled={!fileSelected}
 				className="nextButton"
-				onClick={() => navigate("/editor")}
+				onClick={() => setStartSlideOut(true)}
 			></button>
-		</div>
+		</animated.div>
 	);
 }
 

@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./Editor.module.css";
 import Format from "./components/format/Format";
 import PaddingAndSizes from "./components/padding-and-sizes";
 import styled from "styled-components";
 import Color from "./components/color/Color";
 import { useFile } from "./contexts/FileContext";
+import { animated, useSpring } from "@react-spring/web";
 
 type TabProps = {
 	active: boolean;
@@ -36,8 +37,16 @@ function Editor() {
 	const [activeTab, setActiveTab] = useState("format");
 	const { fileDataUrl } = useFile();
 
+	const spring = useSpring({
+		from: { opacity: 0, transform: "scale(0.1)" },
+		to: { opacity: 1, transform: "scale(1)" },
+		config: {
+			duration: 300,
+		},
+	});
+
 	return (
-		<div className={styles.rootContainer}>
+		<animated.div style={spring} className={styles.rootContainer}>
 			<div className={styles.editorContainer}>
 				<div className={styles.editorLeft}>
 					<div className={styles.currentImageContainer}>
@@ -85,7 +94,7 @@ function Editor() {
 					</div>
 				</div>
 			</div>
-		</div>
+		</animated.div>
 	);
 }
 
