@@ -1,4 +1,6 @@
 import styles from "./Format.module.css";
+import { animated, useSpring } from "@react-spring/web";
+
 const Formats = [
 	{
 		name: "PNG",
@@ -45,23 +47,33 @@ const Formats = [
 ];
 
 function Format() {
+	const spring = useSpring({
+		from: { opacity: 0 },
+		to: { opacity: 1 },
+		config: {
+			duration: 800,
+		},
+	});
+
 	return (
-		<div className={styles.rootContainer}>
-			<div className={styles.formatContainer}>
-				{Formats.map((format) => (
-					<label key={format.id} className={styles.formatItem}>
-						<div>
-							<input type="checkbox" name={format.name} />
-							<span className={styles.checkmark}></span>
-						</div>
-						<div className={styles.formatIcon}>
-							<img src={format.icon} alt={format.name} />
-							{format.name}
-						</div>
-					</label>
-				))}
+		<animated.div style={spring} className={styles.rootContainer}>
+			<div className={styles.rootContainer}>
+				<div className={styles.formatContainer}>
+					{Formats.map((format) => (
+						<label key={format.id} className={styles.formatItem}>
+							<div>
+								<input type="checkbox" name={format.name} />
+								<span className={styles.checkmark}></span>
+							</div>
+							<div className={styles.formatIcon}>
+								<img src={format.icon} alt={format.name} />
+								{format.name}
+							</div>
+						</label>
+					))}
+				</div>
 			</div>
-		</div>
+		</animated.div>
 	);
 }
 

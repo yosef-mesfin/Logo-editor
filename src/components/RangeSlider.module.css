@@ -89,7 +89,7 @@
   width: 4rem;
   padding: .3rem .5rem;
   border: .5px #2ecc71 solid;
-  border-radius: 5px;
+  border-radius: 12px;
 }
 
 .rangeSlider:hover .sliderTrack {

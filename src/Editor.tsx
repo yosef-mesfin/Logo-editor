@@ -20,7 +20,8 @@ const Tab = styled.button<TabProps>`
 	border: 2px solid transparent;
 	outline: 0;
 	color: #b3b3b3;
-	${({ active }) =>
+	cursor: pointer;
+	${({ active }: { active: boolean }) =>
 		active &&
 		`
     border-bottom: 2px solid #2ecc71;

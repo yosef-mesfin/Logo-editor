@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFile } from "./contexts/FileContext";
+import { animated, useSpring } from "@react-spring/web";
 import "./App.css";
 
 function App() {
@@ -9,8 +10,14 @@ function App() {
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const { file, setFile } = useFile();
 	const [fileSelected, setFileSelected] = useState(false);
-	console.log("🚀 ~ App ~ file:", file);
-	console.log("🚀 ~ App ~ fileSelected:", fileSelected);
+
+	const spring = useSpring({
+		from: { opacity: 0 },
+		to: { opacity: 1 },
+		config: {
+			duration: 1000,
+		},
+	});
 
 	const handleDragOver = (e: DragEvent) => {
 		e.preventDefault();
@@ -63,7 +70,7 @@ function App() {
 	return (
 		<div className="rootContainer">
 			<h1 className="title">Generate Logo variation in seconds.</h1>
-			<div className="uploadContainer">
+			<animated.div style={spring} className="uploadContainer">
 				<div ref={dropContainerRef} className="dropBox" id="dropbox">
 					<span className="uploadTitle">Drop files here</span>
 					or
@@ -81,14 +88,12 @@ function App() {
 						}}
 					/>
 				</div>
-			</div>
+			</animated.div>
 			<button
 				disabled={!fileSelected}
 				className="nextButton"
 				onClick={() => navigate("/editor")}
-			>
-				Next
-			</button>
+			></button>
 		</div>
 	);
 }

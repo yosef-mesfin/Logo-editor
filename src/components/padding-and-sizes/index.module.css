@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 1.5rem;
+  padding:2rem;
 }
 
 .paddingContainer,
@@ -17,7 +17,7 @@
 .paddingHeader,
 .sizesHeader {
   font-size: 1.3rem;
-  margin: 1rem 0 0 1rem;
+  margin: .5rem 0 0 .5rem;
 }
 
 .paddingX,

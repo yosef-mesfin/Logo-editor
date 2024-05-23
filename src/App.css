@@ -72,18 +72,39 @@
 	text-align: center;
 	font-size: 3.5rem;
 	text-transform: capitalize;
+	margin-bottom: 1rem;
 }
 
 .nextButton {
-  background: #2ecc71;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s ease-in-out;
+  display: inline-block;
+  width: 96px;
+  height: 96px;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m13.061 4.939l-2.122 2.122L15.879 12l-4.94 4.939l2.122 2.122L20.121 12z'/%3E%3Cpath fill='%23000' d='M6.061 19.061L13.121 12l-7.06-7.061l-2.122 2.122L8.879 12l-4.94 4.939z'/%3E%3C/svg%3E");
+  background-color: #27ae60;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
 
-  &:hover {
-    background: #27ae60;
-  }
+.nextButton:hover {
+	background-color: #2ecc71;
+}
+
+.nextButton:disabled {
+	background-color: #828282;
+	cursor: not-allowed;
+}
+
+
+.subtitle {
+	width: 50%;
+	text-align: center;
+	font-size: 2rem;
+	text-transform: capitalize;
+	margin: 0;
+	color: #828682;
+	font-weight: 500;
 }
