@@ -21,10 +21,8 @@ function App() {
 	});
 
 	const slideOut = useSpring({
-		transform: startSlideOut ? "translateX(-100%)" : "translateX(0%)",
-		config: {
-			duration: 500,
-		},
+		opacity: startSlideOut ? 0 : 1,
+		config: { duration: 500 },
 		onRest: () => {
 			if (startSlideOut) {
 				navigate("/editor");
@@ -51,6 +49,11 @@ function App() {
 		dropContainerRef.current?.classList.remove("drag-active");
 		if (fileInputRef.current) {
 			fileInputRef.current.files = e.dataTransfer?.files || null;
+			if (fileInputRef.current.files?.[0]) {
+				setFile(fileInputRef.current.files[0]);
+				setFileSelected(true);
+				setStartSlideOut(true);
+			}
 		}
 	};
 
@@ -77,6 +80,7 @@ function App() {
 	useEffect(() => {
 		if (file) {
 			setFileSelected(true);
+			setStartSlideOut(true);
 		}
 	}, [fileSelected]);
 
@@ -97,16 +101,17 @@ function App() {
 							if (file) {
 								setFile(file);
 								setFileSelected(true);
+								setStartSlideOut(true);
 							}
 						}}
 					/>
 				</div>
 			</animated.div>
-			<button
+			{/* <button
 				disabled={!fileSelected}
 				className="nextButton"
 				onClick={() => setStartSlideOut(true)}
-			></button>
+			></button> */}
 		</animated.div>
 	);
 }
