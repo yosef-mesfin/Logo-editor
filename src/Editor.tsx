@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styles from "./Editor.module.css";
 import Format from "./components/format/Format";
 import PaddingAndSizes from "./components/padding-and-sizes";
@@ -7,9 +7,9 @@ import Color from "./components/color/Color";
 import { useFile } from "./contexts/FileContext";
 import { animated, useSpring } from "@react-spring/web";
 
-type TabProps = {
+interface TabProps {
 	active: boolean;
-};
+}
 
 const Tab = styled.button<TabProps>`
 	background: #333;
@@ -33,7 +33,11 @@ const Tab = styled.button<TabProps>`
 const tabs = ["format", "padding and size", "color"];
 const downloadOptions = ["Default", "Digital", "Print", "Favicon"];
 
-function Editor() {
+type EditorProps = {
+	onClose: () => void;
+};
+
+const Editor: React.FC<EditorProps> = ({ onClose }) => {
 	const [activeTab, setActiveTab] = useState("format");
 	const { fileDataUrl } = useFile();
 
@@ -83,6 +87,9 @@ function Editor() {
 					{activeTab === "padding and size" && <PaddingAndSizes />}
 					{activeTab === "color" && <Color />}
 					<div className={styles.downloadContainer}>
+						<button className={styles.cancelButton} onClick={onClose}>
+							Cancel
+						</button>
 						<select>
 							{downloadOptions.map((option) => (
 								<option key={option} value={option}>
@@ -96,6 +103,6 @@ function Editor() {
 			</div>
 		</animated.div>
 	);
-}
+};
 
 export default Editor;

@@ -51,30 +51,28 @@ function PaddingAndSizes() {
 	};
 
 	return (
-		<animated.div style={spring}>
-			<div className={styles.rootContainer}>
-				<div className={styles.paddingContainer}>
-					<h3 className={styles.paddingHeader}>Padding</h3>
-					<div className={styles.paddingX}>
-						<h4 className={styles.paddingXTitle}>X Padding</h4>
-						<RangeSlider min={0} max={100} value={0} step={1} />
-					</div>
-					<div className={styles.paddingY}>
-						<h4 className={styles.paddingYTitle}>Y Padding</h4>
-						<RangeSlider min={0} max={100} value={0} step={1} />
-					</div>
+		<animated.div style={spring} className={styles.rootContainer}>
+			<div className={styles.paddingContainer}>
+				<h3 className={styles.paddingHeader}>Padding</h3>
+				<div className={styles.paddingX}>
+					<h4 className={styles.paddingXTitle}>X Padding</h4>
+					<RangeSlider min={0} max={100} value={0} step={1} />
 				</div>
-				<div className={styles.sizesContainer}>
-					<h3 className={styles.sizesHeader}>Sizes</h3>
-					<div className={styles.sizesHandler}>
-						<select className={styles.select} onChange={handleSelectChange}>
-							<option>Dimention</option>
-							<option>Width</option>
-							<option>Height</option>
-						</select>
-						{renderInputs()}
-						<button className={styles.addButton}>add</button>
-					</div>
+				<div className={styles.paddingY}>
+					<h4 className={styles.paddingYTitle}>Y Padding</h4>
+					<RangeSlider min={0} max={100} value={0} step={1} />
+				</div>
+			</div>
+			<div className={styles.sizesContainer}>
+				<h3 className={styles.sizesHeader}>Sizes</h3>
+				<div className={styles.sizesHandler}>
+					<select className={styles.select} onChange={handleSelectChange}>
+						<option>Dimention</option>
+						<option>Width</option>
+						<option>Height</option>
+					</select>
+					{renderInputs()}
+					<button className={styles.addButton}>add</button>
 				</div>
 			</div>
 		</animated.div>

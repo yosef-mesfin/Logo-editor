@@ -1,32 +1,22 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useFile } from "./contexts/FileContext";
 import { animated, useSpring } from "@react-spring/web";
 import "./App.css";
+import Modal from "./components/modal";
+import Editor from "./Editor";
 
 function App() {
-	const navigate = useNavigate();
 	const dropContainerRef = useRef<HTMLDivElement>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const { file, setFile } = useFile();
 	const [fileSelected, setFileSelected] = useState(false);
-	const [startSlideOut, setStartSlideOut] = useState(false);
+	const ref = useRef<{ open: VoidFunction; close: VoidFunction }>();
 
 	const spring = useSpring({
 		from: { opacity: 0 },
 		to: { opacity: 1 },
 		config: {
 			duration: 1000,
-		},
-	});
-
-	const slideOut = useSpring({
-		opacity: startSlideOut ? 0 : 1,
-		config: { duration: 500 },
-		onRest: () => {
-			if (startSlideOut) {
-				navigate("/editor");
-			}
 		},
 	});
 
@@ -52,7 +42,6 @@ function App() {
 			if (fileInputRef.current.files?.[0]) {
 				setFile(fileInputRef.current.files[0]);
 				setFileSelected(true);
-				setStartSlideOut(true);
 			}
 		}
 	};
@@ -79,13 +68,12 @@ function App() {
 
 	useEffect(() => {
 		if (file) {
-			setFileSelected(true);
-			setStartSlideOut(true);
+			ref.current?.open();
 		}
 	}, [fileSelected]);
 
 	return (
-		<animated.div style={slideOut} className="rootContainer">
+		<div className="rootContainer">
 			<h1 className="title">Generate Logo variation in seconds.</h1>
 			<animated.div style={spring} className="uploadContainer">
 				<div ref={dropContainerRef} className="dropBox" id="dropbox">
@@ -101,18 +89,20 @@ function App() {
 							if (file) {
 								setFile(file);
 								setFileSelected(true);
-								setStartSlideOut(true);
 							}
 						}}
 					/>
 				</div>
 			</animated.div>
-			{/* <button
-				disabled={!fileSelected}
-				className="nextButton"
-				onClick={() => setStartSlideOut(true)}
-			></button> */}
-		</animated.div>
+			{fileSelected && (
+				<button className="editButton" onClick={() => ref.current?.open()}>
+					Resume
+				</button>
+			)}
+			<Modal ref={ref}>
+				<Editor onClose={() => ref.current?.close()} />
+			</Modal>
+		</div>
 	);
 }
 

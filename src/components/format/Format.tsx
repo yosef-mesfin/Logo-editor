@@ -57,22 +57,22 @@ function Format() {
 
 	return (
 		<animated.div style={spring} className={styles.rootContainer}>
-			<div className={styles.rootContainer}>
-				<div className={styles.formatContainer}>
-					{Formats.map((format) => (
-						<label key={format.id} className={styles.formatItem}>
-							<div>
-								<input type="checkbox" name={format.name} />
-								<span className={styles.checkmark}></span>
-							</div>
-							<div className={styles.formatIcon}>
-								<img src={format.icon} alt={format.name} />
-								{format.name}
-							</div>
-						</label>
-					))}
-				</div>
+			{/* <div className={styles.rootContainer}> */}
+			<div className={styles.formatContainer}>
+				{Formats.map((format) => (
+					<label key={format.id} className={styles.formatItem}>
+						<div>
+							<input type="checkbox" name={format.name} />
+							<span className={styles.checkmark}></span>
+						</div>
+						<div className={styles.formatIcon}>
+							<img src={format.icon} alt={format.name} />
+							{format.name}
+						</div>
+					</label>
+				))}
 			</div>
+			{/* </div> */}
 		</animated.div>
 	);
 }

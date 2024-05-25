@@ -4,7 +4,6 @@
   align-items: center;
   height: 100%;
   width: 100%;
-  min-height: 100vh;
   background: #1f291f;
 }
 .editorContainer {
@@ -80,11 +79,6 @@
   text-align: center;
 }
 
- /* .editorContainer button:active {
-  background: #333;
- } */
-
-
 
  .downloadContainer {
   display: flex;
@@ -100,7 +94,7 @@
   background: #333;
   color: #fff;
   font-size: 1rem;
-  margin-right: 1rem;
+  margin: 0 1rem;
   outline: 1px solid #2ecc71;
 }
 
@@ -109,11 +103,22 @@ option {
   color: #fff;
 }
 
-.downloadContainer button {
+.downloadButton {
   padding: 0.5rem;
   border: 1px solid #333;
   border-radius: 5px;
   background: #2ecc71;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.cancelButton {
+  padding: 0.5rem;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background: #e74c3c;
   padding: 0.5rem 1rem;
   color: #fff;
   font-size: 1rem;

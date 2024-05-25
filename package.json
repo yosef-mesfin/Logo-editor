@@ -12,6 +12,8 @@
 	"dependencies": {
 		"@react-spring/web": "^9.7.3",
 		"react": "^18.2.0",
+		"react-best-gradient-color-picker": "^3.0.7",
+		"react-color": "^2.19.3",
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.23.1",
 		"styled-components": "^6.1.11",

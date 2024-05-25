@@ -1,0 +1,8 @@
+.modalOverlay {
+  border: none;
+  background: #1f291f;
+}
+::backdrop {
+  background-color: #1f291f;
+}
+
