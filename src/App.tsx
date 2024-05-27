@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { useFile } from "./contexts/FileContext";
 import { animated, useSpring } from "@react-spring/web";
 import "./App.css";
 import Modal from "./components/modal";
@@ -8,7 +7,7 @@ import Editor from "./Editor";
 function App() {
 	const dropContainerRef = useRef<HTMLDivElement>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
-	const { file, setFile } = useFile();
+	const [file, setFile] = useState<File | null>(null);
 	const [fileSelected, setFileSelected] = useState(false);
 	const ref = useRef<{ open: VoidFunction; close: VoidFunction }>();
 
@@ -57,7 +56,6 @@ function App() {
 		dropContainer.addEventListener("dragleave", handleDragLeave, false);
 		dropContainer.addEventListener("drop", handleDrop, false);
 
-		// Cleanup event listeners on component unmount
 		return () => {
 			dropContainer.removeEventListener("dragover", handleDragOver, false);
 			dropContainer.removeEventListener("dragenter", handleDragEnter, false);
@@ -100,7 +98,7 @@ function App() {
 				</button>
 			)}
 			<Modal ref={ref}>
-				<Editor onClose={() => ref.current?.close()} />
+				<Editor file={file} onClose={() => ref.current?.close()} />
 			</Modal>
 		</div>
 	);

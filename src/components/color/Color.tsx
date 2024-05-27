@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { animated, useSpring } from "@react-spring/web";
 import { SketchPicker } from "react-color";
 
@@ -21,11 +20,15 @@ const Formats = [
 	},
 ];
 
+type ColorProps = {
+	setColor: (color: string) => void;
+};
+
 type Color = {
 	hex: string;
 };
 
-function Color() {
+function Color({ setColor }: ColorProps) {
 	const spring = useSpring({
 		from: { opacity: 0 },
 		to: { opacity: 1 },
@@ -34,7 +37,6 @@ function Color() {
 		},
 	});
 
-	const [color, setColor] = useState("#fff");
 	const handleColorChange = (color: Color) => {
 		setColor(color.hex);
 	};
@@ -68,7 +70,7 @@ function Color() {
 				<div className={styles.colorPicker}>
 					<SketchPicker
 						className={styles.sketchPicker}
-						color={color}
+						color="#fff"
 						onChangeComplete={handleColorChange}
 					/>
 				</div>

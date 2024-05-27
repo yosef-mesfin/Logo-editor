@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Editor.module.css";
 import Format from "./components/format/Format";
 import PaddingAndSizes from "./components/padding-and-sizes";
 import styled from "styled-components";
 import Color from "./components/color/Color";
-import { useFile } from "./contexts/FileContext";
 import { animated, useSpring } from "@react-spring/web";
+import { updateSVG } from "./utils/UpdateSVG";
+import { ReadFile } from "./utils/ReadFile";
 
 interface TabProps {
 	active: boolean;
@@ -35,11 +36,14 @@ const downloadOptions = ["Default", "Digital", "Print", "Favicon"];
 
 type EditorProps = {
 	onClose: () => void;
+	file: File | null;
 };
 
-const Editor: React.FC<EditorProps> = ({ onClose }) => {
+const Editor: React.FC<EditorProps> = ({ onClose, file }) => {
 	const [activeTab, setActiveTab] = useState("format");
-	const { fileDataUrl } = useFile();
+
+	const [svgContent, setSvgContent] = useState<string | null>(null);
+	const [color, setColor] = useState<string>("#fff");
 
 	const spring = useSpring({
 		from: { opacity: 0, transform: "scale(0.1)" },
@@ -48,6 +52,25 @@ const Editor: React.FC<EditorProps> = ({ onClose }) => {
 			duration: 300,
 		},
 	});
+
+	useEffect(() => {
+		if (file) {
+			ReadFile(file)
+				.then((data) => {
+					setSvgContent(data);
+				})
+				.catch((error) => {
+					console.error("Error Reading File:", error);
+				});
+		}
+	}, [file]);
+
+	useEffect(() => {
+		if (svgContent) {
+			const updatedSVG = updateSVG(svgContent, color);
+			setSvgContent(updatedSVG);
+		}
+	}, [svgContent, color]);
 
 	return (
 		<animated.div style={spring} className={styles.rootContainer}>
@@ -59,16 +82,15 @@ const Editor: React.FC<EditorProps> = ({ onClose }) => {
 							alt="Edit"
 							className={styles.editIcon}
 						/>
-						<img
-							src={fileDataUrl || "/icons/test-logo-icon.svg"}
-							alt="Current Image"
-						/>
+						{svgContent && (
+							<div
+								className={styles.svgContainer}
+								dangerouslySetInnerHTML={{ __html: svgContent }}
+							/>
+						)}
 					</div>
 					<div className={styles.originalImageContainer}>
-						<img
-							src={fileDataUrl || "/icons/test-logo-icon.svg"}
-							alt="Original Image"
-						/>
+						<img src={"/icons/test-logo-icon.svg"} alt="Original Image" />
 					</div>
 				</div>
 				<div className={styles.editorRight}>
@@ -85,7 +107,7 @@ const Editor: React.FC<EditorProps> = ({ onClose }) => {
 					</div>
 					{activeTab === "format" && <Format />}
 					{activeTab === "padding and size" && <PaddingAndSizes />}
-					{activeTab === "color" && <Color />}
+					{activeTab === "color" && <Color setColor={setColor} />}
 					<div className={styles.downloadContainer}>
 						<button className={styles.cancelButton} onClick={onClose}>
 							Cancel
