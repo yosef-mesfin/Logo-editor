@@ -9,7 +9,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: start;
-  width: 100%;
+  width: 100vw;
 }
 
 .formatContainer {
@@ -100,4 +100,19 @@
 .colorHeader {
   font-size: 1.3rem;
   margin: 2rem 0 0 2.5rem;
+}
+
+
+@media (max-width: 768px) {
+  .formatContainer {
+    padding: 1rem;
+    justify-content: center;
+
+  }
+
+  .formatItem {
+    width: 30%;
+    height: 50px;
+    font-size: 14px;
+  }
 }

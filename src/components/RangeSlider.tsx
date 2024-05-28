@@ -6,20 +6,22 @@ type RangeSliderProps = {
 	max: number;
 	value: number;
 	step: number;
+	onChange: (value: number) => void;
 };
 
-function RangeSlider({ min, max, value, step }: RangeSliderProps) {
+function RangeSlider({ min, max, value, step, onChange }: RangeSliderProps) {
 	const [SliderRange, setSliderRange] = useState<number>(value);
 	const [inputValue, setInputValue] = useState<number>(value);
 	const sliderRef = useRef<HTMLInputElement>(null);
 
 	const handleSliderInput = () => {
 		const range = max - min;
-		const distance = sliderRef.current.value - min;
+		const distance = parseInt(sliderRef.current?.value || "0") - min;
 		const percentage = (distance / range) * 100;
 
 		setSliderRange(percentage);
-		setInputValue(sliderRef.current.value);
+		setInputValue(parseInt(sliderRef.current?.value || "0"));
+		onChange(parseInt(sliderRef.current?.value || "0"));
 	};
 
 	const handleNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,8 +33,7 @@ function RangeSlider({ min, max, value, step }: RangeSliderProps) {
 			setInputValue(value > max ? max : value);
 			setSliderRange(((value - min) / (max - min)) * 100);
 		}
-		setInputValue(value);
-		setSliderRange(((value - min) / (max - min)) * 100);
+		onChange(value);
 	};
 
 	useEffect(() => {

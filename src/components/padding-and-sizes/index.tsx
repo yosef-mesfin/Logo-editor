@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { animated, useSpring } from "@react-spring/web";
 
 import styles from "./index.module.css";
 import RangeSlider from "../RangeSlider";
 
-function PaddingAndSizes() {
+interface PaddingAndSizesProps {
+	setPaddingX: (value: number) => void;
+	setPaddingY: (value: number) => void;
+}
+
+const PaddingAndSizes: React.FC<PaddingAndSizesProps> = ({
+	setPaddingX,
+	setPaddingY,
+}) => {
 	const spring = useSpring({
 		from: { opacity: 0 },
 		to: { opacity: 1 },
@@ -19,6 +27,14 @@ function PaddingAndSizes() {
 		setSelected(e.target.value);
 	};
 
+	const handlePaddingXChange = (value: number) => {
+		setPaddingX(value);
+	};
+
+	const handlePaddingYChange = (value: number) => {
+		setPaddingY(value);
+	};
+
 	const renderInputs = () => {
 		if (selected === "Dimention") {
 			return (
@@ -28,6 +44,7 @@ function PaddingAndSizes() {
 						type="number"
 						value="width"
 						placeholder="Width (px)"
+						onChange={() => {}}
 					/>
 					<span>X</span>
 					<input
@@ -35,6 +52,7 @@ function PaddingAndSizes() {
 						type="number"
 						value="height"
 						placeholder="Height (px)"
+						onChange={() => {}}
 					/>
 				</div>
 			);
@@ -45,6 +63,7 @@ function PaddingAndSizes() {
 					type="number"
 					value={selected === "Height" ? "height" : "width"}
 					placeholder={selected === "Height" ? "Height (px)" : "Width (px)"}
+					onChange={() => {}}
 				/>
 			);
 		}
@@ -56,11 +75,23 @@ function PaddingAndSizes() {
 				<h3 className={styles.paddingHeader}>Padding</h3>
 				<div className={styles.paddingX}>
 					<h4 className={styles.paddingXTitle}>X Padding</h4>
-					<RangeSlider min={0} max={100} value={0} step={1} />
+					<RangeSlider
+						min={0}
+						max={100}
+						value={0}
+						step={1}
+						onChange={handlePaddingXChange}
+					/>
 				</div>
 				<div className={styles.paddingY}>
 					<h4 className={styles.paddingYTitle}>Y Padding</h4>
-					<RangeSlider min={0} max={100} value={0} step={1} />
+					<RangeSlider
+						min={0}
+						max={100}
+						value={0}
+						step={1}
+						onChange={handlePaddingYChange}
+					/>
 				</div>
 			</div>
 			<div className={styles.sizesContainer}>
@@ -77,5 +108,5 @@ function PaddingAndSizes() {
 			</div>
 		</animated.div>
 	);
-}
+};
 export default PaddingAndSizes;

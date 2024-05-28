@@ -9,8 +9,9 @@
   justify-content: flex-start;
   align-content: flex-start;
   flex-wrap: wrap;
-  padding: 2rem;
+  padding: 2rem 00 2rem;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .formatItem {
@@ -82,4 +83,19 @@
 .formatIcon {
   display: flex;
   align-items: center;
+}
+
+
+@media (max-width: 768px) {
+  .formatContainer {
+    padding: 1rem;
+    justify-content: center;
+
+  }
+
+  .formatItem {
+    width: 30%;
+    height: 50px;
+    font-size: 14px;
+  }
 }

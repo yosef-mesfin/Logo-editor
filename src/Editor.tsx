@@ -5,7 +5,7 @@ import PaddingAndSizes from "./components/padding-and-sizes";
 import styled from "styled-components";
 import Color from "./components/color/Color";
 import { animated, useSpring } from "@react-spring/web";
-import { updateSVG } from "./utils/UpdateSVG";
+import { updateSVGColor, updateSVGPaddings } from "./utils/UpdateSVG";
 import { ReadFile } from "./utils/ReadFile";
 
 interface TabProps {
@@ -29,6 +29,15 @@ const Tab = styled.button<TabProps>`
     border-bottom: 2px solid #2ecc71;
     color: #fff;
   `};
+	@media (max-width: 768px) {
+		font-size: 1rem;
+		padding: 0.5rem;
+	}
+
+	@media (max-width: 480px) {
+		font-size: 0.9rem;
+		padding: 0.4rem;
+	}
 `;
 
 const tabs = ["format", "padding and size", "color"];
@@ -41,9 +50,10 @@ type EditorProps = {
 
 const Editor: React.FC<EditorProps> = ({ onClose, file }) => {
 	const [activeTab, setActiveTab] = useState("format");
-
 	const [svgContent, setSvgContent] = useState<string | null>(null);
 	const [color, setColor] = useState<string>("#fff");
+	const [paddingX, setPaddingX] = useState<number>(0);
+	const [paddingY, setPaddingY] = useState<number>(0);
 
 	const spring = useSpring({
 		from: { opacity: 0, transform: "scale(0.1)" },
@@ -67,10 +77,21 @@ const Editor: React.FC<EditorProps> = ({ onClose, file }) => {
 
 	useEffect(() => {
 		if (svgContent) {
-			const updatedSVG = updateSVG(svgContent, color);
+			const updatedSVGWithPadding = updateSVGPaddings(
+				svgContent,
+				paddingX,
+				paddingY
+			);
+			setSvgContent(updatedSVGWithPadding);
+		}
+	}, [paddingX, paddingY]);
+
+	useEffect(() => {
+		if (svgContent) {
+			const updatedSVG = updateSVGColor(svgContent, color);
 			setSvgContent(updatedSVG);
 		}
-	}, [svgContent, color]);
+	}, [color]);
 
 	return (
 		<animated.div style={spring} className={styles.rootContainer}>
@@ -106,7 +127,12 @@ const Editor: React.FC<EditorProps> = ({ onClose, file }) => {
 						))}
 					</div>
 					{activeTab === "format" && <Format />}
-					{activeTab === "padding and size" && <PaddingAndSizes />}
+					{activeTab === "padding and size" && (
+						<PaddingAndSizes
+							setPaddingX={setPaddingX}
+							setPaddingY={setPaddingY}
+						/>
+					)}
 					{activeTab === "color" && <Color setColor={setColor} />}
 					<div className={styles.downloadContainer}>
 						<button className={styles.cancelButton} onClick={onClose}>

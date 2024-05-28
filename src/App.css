@@ -125,3 +125,19 @@
 .editButton:hover {
 	background-color: #2ecc71;
 }
+
+@media screen and (max-width: 768px) {
+	.uploadContainer {
+		width: 80%;
+	}
+
+	.title {
+		width: 80%;
+		font-size: 2.5rem;
+	}
+
+	.subtitle {
+		width: 80%;
+	}
+	
+}

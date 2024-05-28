@@ -9,6 +9,7 @@ import styles from "./index.module.css";
 interface ModalProps {
 	children: React.ReactElement;
 }
+
 const Modal = forwardRef(({ children }: ModalProps, ref: any) => {
 	const dialogRef = useRef<HTMLDialogElement>(null);
 

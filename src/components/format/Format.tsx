@@ -57,7 +57,6 @@ function Format() {
 
 	return (
 		<animated.div style={spring} className={styles.rootContainer}>
-			{/* <div className={styles.rootContainer}> */}
 			<div className={styles.formatContainer}>
 				{Formats.map((format) => (
 					<label key={format.id} className={styles.formatItem}>
@@ -72,7 +71,6 @@ function Format() {
 					</label>
 				))}
 			</div>
-			{/* </div> */}
 		</animated.div>
 	);
 }
